@@ -3,7 +3,7 @@
  * @author Uni
  */
 
-import AuthCom from "./components/AuthCom"
+import AuthCom from "./components/Auth"
 import Layout from "./components/Layout"
 import LoginAndRegister from "./pages/LoginAndRegister"
 

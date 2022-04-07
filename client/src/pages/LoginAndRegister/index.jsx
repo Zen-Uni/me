@@ -3,9 +3,20 @@
  * @author Uni
  */
 
+import { useState } from "react"
+import Login from "./Login"
+import Register from "./Register"
+
 function LoginAndRegister() {
+
+    const [loginState, setLoginState] = useState(true)
+
+    const handleSwitch = () => {
+        setLoginState(!loginState)
+    }
+
     return (
-        <div>this is login and register page</div>
+        loginState ? <Login handleSwitch={handleSwitch}/> : <Register handleSwitch={handleSwitch}/>
     )
 }
 

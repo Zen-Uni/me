@@ -5,7 +5,6 @@
 
 import Img from './Loading.gif'
 import { LoadingWrapper } from './style'
-console.log(Img)
 export default function Loading() {
     return (
         <LoadingWrapper>

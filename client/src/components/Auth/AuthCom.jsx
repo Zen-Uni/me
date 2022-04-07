@@ -3,12 +3,12 @@
  * @author Uni
  */
 
-import { Spin } from "@douyinfe/semi-ui"
+
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router"
-import { logIn, logOut } from "../store/authReducer"
-import Loading from "./Loading"
+import { logIn, logOut } from "../../store/authReducer"
+import Loading from "../Loading"
 
 // 控制变量判断
 export default function AuthCom({children}) {
@@ -39,9 +39,6 @@ export default function AuthCom({children}) {
 
     if (!auth) {
         return (
-            // <Spin
-            //     spinning={!auth}
-            // />
             <Loading/>
         )
     }
