@@ -16,7 +16,7 @@ const env = process.env.NODE_ENV
 console.log(env)
 
 const path = env !== 'production' ? DEV_DB : PRD_DB
-
 mongoose.connect(path)
+
 
 module.exports = mongoose

@@ -4,8 +4,8 @@
  */
 
 module.exports = {
-    DEV_DB: 'mongodb://localhost/me',
-    // 暂时
-    PRD_DB: 'mongodb://localhost/me'
+    DEV_DB: 'mongodb://127.0.0.1/me',
+    // 暂时 
+    PRD_DB: 'mongodb://127.0.0.1/me'
 }
 
