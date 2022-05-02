@@ -4,6 +4,7 @@
  */
 
 import { useSelector } from "react-redux";
+import ToolBar from "../../components/ToolBar";
 import { selectPost } from "../../store/postReducer";
 
 export default function PostPage() {
@@ -13,6 +14,7 @@ export default function PostPage() {
 
     return (
         <>
+            <ToolBar/>
             {
                 postStatus
             }
