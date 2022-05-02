@@ -4,8 +4,11 @@
  */
 
 import { useSelector } from "react-redux";
+import BottomBar from "../../components/BottomBar";
+import ButtonSlot from "../../components/ButtonSlot";
+import ContextBar from "../../components/ContextBar";
 import ToolBar from "../../components/ToolBar";
-import { selectPost } from "../../store/postReducer";
+import { MODE_TYPE, selectPost } from "../../store/postReducer";
 
 export default function PostPage() {
     const postStatus = useSelector(selectPost)
@@ -15,9 +18,19 @@ export default function PostPage() {
     return (
         <>
             <ToolBar/>
+            <ContextBar/>
             {
-                postStatus
+                postStatus === MODE_TYPE.self
+                ? 
+                (
+                    <ButtonSlot>
+                        <BottomBar/>
+                    </ButtonSlot>
+                )
+                : 
+                null 
             }
+
         </>
     )
 }

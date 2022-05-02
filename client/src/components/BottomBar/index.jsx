@@ -5,9 +5,14 @@
 // TODO: BottomBar 的开发
 
 
-// export default function BottomBar() {
+import { BottomBarWrapper } from "./style";
 
-//     return (
 
-//     )
-// }
+export default function BottomBar() {
+    // TODO: 引入日历组件
+    return (
+        <BottomBarWrapper>
+            <div className="button"></div>
+        </BottomBarWrapper>
+    )
+}

@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 
 export const ToolBarWrapper = styled.div`
     height: 60px;
-    position: relative;
+    position: absolute;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -16,6 +16,7 @@ export const ToolBarWrapper = styled.div`
     box-sizing: border-box;
     font-size: 17px;
     font-weight: 300;
+
 
 
     // 取消键
