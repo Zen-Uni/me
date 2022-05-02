@@ -5,10 +5,12 @@
 
 import Img from './Loading.gif'
 import { LoadingWrapper } from './style'
+import { Spin } from '@douyinfe/semi-ui'
 export default function Loading() {
     return (
         <LoadingWrapper>
-            <img src={Img} />
+            {/* <img src={Img} /> */}
+            <Spin size="large" />
         </LoadingWrapper>
     )
 }
