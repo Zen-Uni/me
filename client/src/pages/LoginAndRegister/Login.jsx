@@ -5,18 +5,30 @@
 
 import { Button, Form } from "@douyinfe/semi-ui"
 import { useRequest } from "ahooks"
+import { useNavigate } from "react-router"
 import { loginReq } from "../../service"
-
+import { Toast } from '@douyinfe/semi-ui'
+import { configReq, storeToken } from "../../utils/token"
 
 export default function Login({
     handleSwitch
 }) {
 
+    const navigate = useNavigate()
+
     const { data, run } = useRequest(loginReq, {
         manual: true,
-        onSuccess: (res) => {
-            console.log(res)
-        },
+        onSuccess: ({ code, msg, data }) => {
+            if (!code) {
+                Toast.warning(msg)
+                return
+            }
+
+            Toast.success(msg)
+            storeToken(data?.token)
+            configReq()
+            navigate('/')
+        },  
         onError: ({response}) => {
             console.log(response.status === 422)
         }

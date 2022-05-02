@@ -11,6 +11,8 @@ import { logIn, logOut } from "../../store/authReducer"
 import Loading from "../Loading"
 import { useRequest } from 'ahooks'
 import { authReq } from '../../service'
+import { configReq } from "../../utils/token"
+
 
 
 // 控制变量判断
@@ -56,7 +58,7 @@ export default function AuthCom({children}) {
             navigate('/login')
         }
     })
-
+    configReq()
     useEffect(run, [])
 
     if (loading) {

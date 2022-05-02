@@ -3,19 +3,31 @@
  * @author Uni
  */
 
-import { Button, Col, Form, Row } from "@douyinfe/semi-ui";
+import { Button, Col, Form, Row, Toast } from "@douyinfe/semi-ui";
 import { useRequest } from "ahooks";
 import { registerReq } from "../../service";
+import { configReq, storeToken } from "../../utils/token";
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Register({
     handleSwitch
 }) {
 
+    const navigate = useNavigate()
 
     const { data, run } = useRequest(registerReq, {
         manual: true,
-        onSuccess: (res) => {
-            console.log(res)
+        onSuccess: ({ code, msg, data }) => {
+            if (!code) {
+                Toast.warning(msg)
+                return
+            }
+
+            Toast.success(msg)
+            storeToken(data?.token)
+            configReq()
+            navigate('/')
         },
         onError: ({ response }) => {
             console.log(response)
@@ -54,7 +66,7 @@ export default function Register({
                             </Row> */}
                             {/* 管理这一部分的样式 */}
                             <Row>
-                                <Button onClick={handleSwitch}>去注册</Button>
+                                <Button onClick={handleSwitch}>去登录</Button>
                                 <Button
                                     onClick={() => handleClick(values)}
                                 >
