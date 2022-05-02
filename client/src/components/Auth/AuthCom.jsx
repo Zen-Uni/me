@@ -12,12 +12,14 @@ import Loading from "../Loading"
 import { useRequest } from 'ahooks'
 import { authReq } from '../../service'
 import { configReq } from "../../utils/token"
+import { config, selectUser } from "../../store/userReducer"
 
 
 
 // 控制变量判断
 export default function AuthCom({children}) {
-    const auth = useSelector(state => state.auth.value)
+    // const auth = useSelector(state => state.auth.value)
+    const user = useSelector(selectUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // const [loading, setLoading] = useState(auth)
@@ -48,16 +50,23 @@ export default function AuthCom({children}) {
     //     )
     // }
 
-    const { data, error, loading, run } = useRequest(authReq, {
+    useEffect(() => {
+        console.log(user)
+    })
+
+    const { loading, run } = useRequest(authReq, {
         manual: true,
-        onSuccess: res => {
-            console.log('res --- ', res)
+        onSuccess: ({ data }) => {
+            // console.log('res --- ', res)
+            // console.log(data)
+            dispatch(config(data))
         },
         onError: (err) => {
             dispatch(logOut())
             navigate('/login')
         }
     })
+    // 注册 token 到请求中
     configReq()
     useEffect(run, [])
 
@@ -65,7 +74,7 @@ export default function AuthCom({children}) {
         return (
             <Loading />
         )
-    }
+    } 
 
     return children
 }

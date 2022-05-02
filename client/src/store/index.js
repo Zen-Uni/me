@@ -5,11 +5,15 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authReducer";
+import postReducer from "./postReducer";
+import userReducer from "./userReducer";
 
 // 加载各层 state
 
 export default configureStore({
     reducer: {
-        auth: authReducer
+        auth: authReducer,
+        user: userReducer,
+        post: postReducer
     }
 })

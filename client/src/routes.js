@@ -6,6 +6,8 @@
 import AuthCom from "./components/Auth"
 import Layout from "./components/Layout"
 import LoginAndRegister from "./pages/LoginAndRegister"
+import Main from "./pages/Main/index.jsx"
+import PostPage from "./pages/PostPage"
 
 const routes = [
     {
@@ -18,6 +20,20 @@ const routes = [
         element: (
             <AuthCom>
                 <Layout/>
+            </AuthCom>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Main/>
+            }
+        ]
+    },
+    {
+        path: '/post',
+        element: (
+            <AuthCom>
+                <PostPage/>
             </AuthCom>
         )
     }

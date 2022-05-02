@@ -3,8 +3,21 @@
  * @author Uni
  */
 
+import { Outlet } from "react-router";
+import ButtonSlot from "../ButtonSlot";
+import Pool from "../Pool";
+import Post from "../Post";
+import { LayoutWrapper } from "./style";
+
 export default function Layout() {
     return (
-        <div>this is App Layout</div>
+        <LayoutWrapper>
+            <div>this is App Layout</div>
+            <Outlet/>
+            <ButtonSlot>
+                <Post/>
+                <Pool/>
+            </ButtonSlot>
+        </LayoutWrapper>
     )
 }

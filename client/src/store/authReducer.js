@@ -1,3 +1,8 @@
+/**
+ * @description 权限状态管理
+ * @author Uni
+ */
+
 import { createSlice } from "@reduxjs/toolkit";
 
 export const authSlicer = createSlice({
