@@ -5,6 +5,7 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authReducer";
+import letterReducer from "./letterReducer";
 import postReducer from "./postReducer";
 import userReducer from "./userReducer";
 
@@ -14,6 +15,7 @@ export default configureStore({
     reducer: {
         auth: authReducer,
         user: userReducer,
-        post: postReducer
+        post: postReducer,
+        write: letterReducer
     }
 })

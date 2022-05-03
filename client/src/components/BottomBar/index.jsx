@@ -5,14 +5,27 @@
 // TODO: BottomBar 的开发
 
 
+import { DatePicker } from "@douyinfe/semi-ui";
+import { useDispatch } from "react-redux";
+import { updateSendTo } from "../../store/letterReducer";
 import { BottomBarWrapper } from "./style";
 
 
 export default function BottomBar() {
-    // TODO: 引入日历组件
+
+    const dispatch = useDispatch()
+
     return (
         <BottomBarWrapper>
-            <div className="button"></div>
+            <DatePicker
+                density="compact"
+                type="dateTime"
+                placeholder="寄给未来的自己"
+                onChange={(date, dateStr) => {
+                    dispatch(updateSendTo(dateStr))
+                }}
+            />
         </BottomBarWrapper>
+       
     )
 }
