@@ -50,7 +50,6 @@ const userSchema = new Schema({
         select: false,
         default: 0
     },    // 虚拟位置，y轴
-
 },
     {
         timestamps: true

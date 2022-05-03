@@ -48,7 +48,15 @@ const letterSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    // 邮寄到未来的日期
+    sendTo: {
+        type: String,
+        select: false
     }
+},
+{
+    timestamps: true
 })
 
 

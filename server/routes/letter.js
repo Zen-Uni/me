@@ -5,9 +5,12 @@
 
 const router = require('koa-router')()
 
-const { postSelfStatus } = require('../controller/letter')
+const { postSelfStatus, postSelfDate } = require('../controller/letter')
 const { auth } = require('../middleware/auth')
 
-router.post('/letter/self/status', auth, postSelfStatus)
+router.prefix('/letter')
+
+router.post('/self/status', auth, postSelfStatus)
+router.post('/self/date', auth, postSelfDate)
 
 module.exports = router

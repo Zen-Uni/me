@@ -5,7 +5,7 @@
 
 const Letter = require("../models/letter");
 const User = require("../models/user");
-const { SuccessModel } = require("../utils/res_model");
+const { SuccessModel, ErrorModel } = require("../utils/res_model");
 const { stringReqT, stringReqF } = require("./config/paramsVerifyList")
 
 const LetterType = {
@@ -23,7 +23,7 @@ class LetterCtrl {
             context: stringReqT
         })
 
-        // 不加分号的话会认为后面的括号是函数调用呜呜呜呜
+        // Tip: 不加分号的话会认为后面的括号是函数调用呜呜呜呜
         const _id = ctx.state.user._id;
 
         (async() => {
@@ -45,8 +45,46 @@ class LetterCtrl {
             })
         })()
 
+        // const letter = await new Letter({
+        //     ...ctx.request.body,
+        //     owner: _id,
+        //     mode: LetterType.self_status,
+        //     status: Math.round(Math.random())
+        // })
+        // .save()
 
-        ctx.body = new SuccessModel("信件发送成功")
+        // const user = await User.findById(_id).select('+letters')
+        // user.letters.push(letter._id)
+        // user.save()
+        ctx.body = new SuccessModel("信件已往未来～")
+    }
+
+    async postSelfDate(ctx, next) {
+        ctx.verifyParams({
+            title: stringReqT,
+            context: stringReqT,
+            sendTo: stringReqT
+        })
+
+        const _id = ctx.state.user._id
+
+       try {
+            const letter = await new Letter({
+                ...ctx.request.body,
+                owner: _id,
+                mode: LetterType.self_date
+            })
+            .save()
+
+            const user = await User.findById(_id).select('+letters')
+            user.letters.push(letter._id)
+            user.save()
+
+            ctx.body = new SuccessModel("信件已寄往未来～")
+       } catch (err) {
+           console.log(err)
+           ctx.body = new ErrorModel("信件寄送失败，请稍后再试!")
+       }
     }
 }
 
