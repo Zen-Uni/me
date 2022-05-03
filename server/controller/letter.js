@@ -109,6 +109,40 @@ class LetterCtrl {
            ctx.body = new ErrorModel("信件寄送失败，请稍后再试!")
         }
     }
+
+    async postPoolArea(ctx, next) {
+        ctx.verifyParams({
+            title: stringReqT,
+            context: stringReqT
+        })
+
+        const _id = ctx.state.user._id
+
+        try {
+            (async() => {
+                ctx.body = await new Promise((resolve, reject) => {
+                    setTimeout(async () => {
+                        const letter = await new Letter({
+                            ...ctx.request.body,
+                            owner: _id,
+                            mode: LetterType.pool_area,
+                            status: Math.round(Math.random())
+                        })
+                        .save()
+    
+                        const user = await User.findById(_id).select('+letters')
+                        user.letters.push(letter._id)
+                        user.save()
+                        resolve(letter)
+                    }, 10000)
+                })
+            })()
+
+            ctx.body = new SuccessModel("信件已寄往区域信池~")
+        } catch (err) {
+           ctx.body = new ErrorModel("信件寄送失败，请稍后再试!")
+        }
+    }
 }
 
 
