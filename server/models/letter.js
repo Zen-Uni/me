@@ -11,7 +11,7 @@ const letterSchema = new Schema({
         type: String,
         required: true
     },
-    text: {
+    context: {
         type: String,
         required: true
     },
@@ -27,7 +27,7 @@ const letterSchema = new Schema({
     },
     // 自己是否可见
     send_status: {
-        type: Number,
+        type: Number,  // 0: 不可见 ｜ 1: 可见
         default: 0
     },
     readers: {
