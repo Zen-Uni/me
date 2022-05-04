@@ -17,7 +17,7 @@ const letterSchema = new Schema({
     },
     status: {
         type: Number,
-        default: 1,  // 默认值为 1（积极） 0 是消极
+        default: 0,  // 默认值为 0（积极） 1 是消极
         select: false
     },
     // 信件类型
@@ -51,6 +51,14 @@ const letterSchema = new Schema({
     },
     // 邮寄到未来的日期
     sendTo: {
+        type: String,
+        select: false
+    },
+    relativePos: {
+        type: String,
+        select: false
+    },
+    relativeNav: {
         type: String,
         select: false
     }
