@@ -29,36 +29,41 @@ class LetterCtrl {
         // Tip: 不加分号的话会认为后面的括号是函数调用呜呜呜呜
         const _id = ctx.state.user._id;
         const { context } = ctx.request.body;
-        (async() => {
-            const res = await new Promise((resolve, reject) => {
-                axios.post(BERT_API, {
-                    sentence: context
+        try {
+            (async() => {
+                const res = await new Promise((resolve, reject) => {
+                    axios.post(BERT_API, {
+                        sentence: context
+                    })
+                    .then(res => {
+                        resolve(res.data)
+                    })  
                 })
-                .then(res => {
-                    resolve(res.data)
-                })  
-            })
-
-            const temp = res.distribution.split(" ")
-            const relativePos = temp[0],
-                  relativeNav = temp[1]
-            const status = relativePos >= relativeNav ? 0 : 1
-            const letter = await new Letter({
-                ...ctx.request.body,
-                owner: _id,
-                mode: LetterType.self_status,
-                status,
-                relativePos,
-                relativeNav
-            })
-            .save()
-
-            const user = await User.findById(_id).select('+letters')
-            user.letters.push(letter._id)
-            user.save()
-        })()
-
-        ctx.body = new SuccessModel("信件已往未来～")
+    
+                const temp = res.distribution.split(" ")
+                const relativePos = temp[0],
+                      relativeNav = temp[1]
+                const status = relativePos >= relativeNav ? 0 : 1
+                const letter = await new Letter({
+                    ...ctx.request.body,
+                    owner: _id,
+                    mode: LetterType.self_status,
+                    status,
+                    relativePos,
+                    relativeNav
+                })
+                .save()
+    
+                const user = await User.findById(_id).select('+letters')
+                user.letters.push(letter._id)
+                user.save()
+            })()
+    
+            ctx.body = new SuccessModel("信件已往未来～")
+        } catch (err) {
+            console.log(err)
+            ctx.body = new ErrorModel("信件寄送失败，请稍后再试!")
+        }
     }
 
     async postSelfDate(ctx, next) {

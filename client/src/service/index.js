@@ -49,3 +49,12 @@ export const loginReq = async (url, data) => {
     return await post(url, data)
 }
 
+// 发送个人状态信件
+export const postSelfStatusReq = async (data, url = '/letter/self/status') => {
+    return await post(url, data)
+}
+
+// 发送个人日期信件
+export const postSelfDateReq = async (data, url = '/letter/self/date') => {
+    return await post(url, data)
+}

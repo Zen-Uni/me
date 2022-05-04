@@ -30,7 +30,6 @@ export default function PostPage() {
                 : 
                 null 
             }
-
         </>
     )
 }
