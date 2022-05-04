@@ -7,6 +7,7 @@ import AuthCom from "./components/Auth"
 import Layout from "./components/Layout"
 import LoginAndRegister from "./pages/LoginAndRegister"
 import Main from "./pages/Main/index.jsx"
+import PoolPage from "./pages/PoolPage"
 import PostPage from "./pages/PostPage"
 
 const routes = [
@@ -34,6 +35,14 @@ const routes = [
         element: (
             <AuthCom>
                 <PostPage/>
+            </AuthCom>
+        )
+    },
+    {
+        path: '/pool',
+        element: (
+            <AuthCom>
+                <PoolPage/>
             </AuthCom>
         )
     }

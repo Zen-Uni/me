@@ -13,6 +13,7 @@ export const PoolWrapper = styled.div`
         width: 60px;
         border-radius: 60px;
         background-color: black;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
