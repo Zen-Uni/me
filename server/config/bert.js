@@ -4,7 +4,7 @@
  */
 
 
-const BERT_API = "http://c78bddfae4e8.jp.ngrok.io/api/sentiment"
+const BERT_API = "http://b11f83df468a.jp.ngrok.io/api/sentiment"
 
 
 module.exports = BERT_API

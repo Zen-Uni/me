@@ -14,6 +14,7 @@ export const RollBackWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
     & i {
         font-size: 30px;
         color: #ccc;

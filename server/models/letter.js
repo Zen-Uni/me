@@ -27,16 +27,19 @@ const letterSchema = new Schema({
     },
     // 自己是否可见
     send_status: {
+        // TODO: 修改信件是否可见的逻辑
         type: Number,  // 0: 不可见 ｜ 1: 可见
-        default: 0
+        default: 1
     },
     readers: {
         type: Number,
-        select: false
+        select: false,
+        default: 0
     },
     repliers: {
         type: Number,
-        select: false
+        select: false,
+        default: 0
     },
     // 信件是否合规
     tag: {
