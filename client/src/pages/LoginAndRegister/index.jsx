@@ -6,6 +6,7 @@
 import { useState } from "react"
 import Login from "./Login"
 import Register from "./Register"
+import { SignWrpper } from "./style"
 
 function LoginAndRegister() {
 
@@ -16,7 +17,11 @@ function LoginAndRegister() {
     }
 
     return (
-        loginState ? <Login handleSwitch={handleSwitch}/> : <Register handleSwitch={handleSwitch}/>
+        <SignWrpper>
+            {
+                loginState ? <Login handleSwitch={handleSwitch}/> : <Register handleSwitch={handleSwitch}/>
+            }
+        </SignWrpper>
     )
 }
 

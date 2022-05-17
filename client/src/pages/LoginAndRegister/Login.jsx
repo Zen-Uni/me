@@ -9,6 +9,7 @@ import { useNavigate } from "react-router"
 import { loginReq } from "../../service"
 import { Toast } from '@douyinfe/semi-ui'
 import { configReq, storeToken } from "../../utils/token"
+import { LoginWrapper } from "./style"
 
 export default function Login({
     handleSwitch
@@ -39,11 +40,13 @@ export default function Login({
     }
 
     return (
+       <LoginWrapper>
         <Form
+            labelPosition="inset"
             layout="vertical"
         >
             {
-                ({formState, formApi, values}) => (
+                ({ values }) => (
                     <>
                         <Form.Input field="email" label="邮箱"/>
                         <Form.Input field="password" label="密码"/>
@@ -53,5 +56,6 @@ export default function Login({
                 )
             }
         </Form>
+       </LoginWrapper>
     )
 }

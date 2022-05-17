@@ -41,6 +41,7 @@ export default function Register({
     return (
         <Form
             layout="vertical"
+            labelPosition="inset"
         >
             {
                 // TODO: 修改 register 的 label 问题
@@ -49,7 +50,7 @@ export default function Register({
                         <>
                             <Form.Input field="email" label="邮箱"/>
                             <Form.Input field="username" label="用户名"/>
-                            <Form.Input field="password" label="密码"/>
+                            <Form.Input field="password" label="密码" type="password"/>
                             {/* TODO: 控制表单的行 */}
                             {/* <Row>
                                 <Col span={8}>

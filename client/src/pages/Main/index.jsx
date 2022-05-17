@@ -3,8 +3,13 @@
  * @author Uni
  */
 
+import Header from "./Header";
+import { MainWrapper } from "./style";
+
 export default function Main() {
     return (
-        <div>this is Main Page</div>
+        <MainWrapper>
+            <Header/>
+        </MainWrapper>
     )
 }

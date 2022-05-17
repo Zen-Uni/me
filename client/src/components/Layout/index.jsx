@@ -12,7 +12,6 @@ import { LayoutWrapper } from "./style";
 export default function Layout() {
     return (
         <LayoutWrapper>
-            <div>this is App Layout</div>
             <Outlet/>
             <ButtonSlot>
                 <Post/>
