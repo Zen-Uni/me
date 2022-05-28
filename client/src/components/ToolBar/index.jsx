@@ -11,6 +11,7 @@ import { ToolBarWrapper } from "./style";
 import { useRequest } from 'ahooks'
 import { MODE_TYPE, selectPost } from "../../store/postReducer";
 import { postSelfDateReq, postSelfStatusReq } from "../../service";
+import useClearLetter from "../../hooks/useClearLetter";
 
 export default function ToolBar() {
     
@@ -20,19 +21,21 @@ export default function ToolBar() {
     const sendTo = useSelector(selectWriteSendTo)
     const postMode = useSelector(selectPost)
     const dispatch = useDispatch()
-
+    const clearSideEffect = useClearLetter()
     // 信件投递反馈表现
     const onSuccess = ({ msg }) => {
         Toast.success(msg)
+        clearSideEffect()
         navigate(-1)
     }   
     const onError = ({ response }) => {
         Toast.warning(response.data.msg)
+        clearSideEffect()
     }
 
     // 请求配置
     const config = {
-        manual: true,
+        manual: true,       
         onSuccess,
         onError
     }
@@ -55,7 +58,7 @@ export default function ToolBar() {
             return Toast.warning("信件内容不能为空哦")
         }
 
-        console.log(context)
+        // console.log(context)
 
         // 给自己写信
         if (postMode === MODE_TYPE.self) {
@@ -80,7 +83,7 @@ export default function ToolBar() {
             return 
         }
 
-        if (postMode === MODE_TYPE.pool) {
+        if (postMode === MODE_TYPE.pool) {       
             return 
         }
 

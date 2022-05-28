@@ -27,6 +27,13 @@ export const letterSlicer = createSlice({
         },
         updateSendTo: (state, action) => {
             state.sendTo = action.payload
+        },
+        clearLetterContext: () => {
+            return {
+                title: new Date().toLocaleDateString(),
+                context: "",
+                sendTo: ""
+            }
         }
     }
 })
@@ -35,7 +42,8 @@ export const letterSlicer = createSlice({
 export const {
     updateTitle,
     updateContext,
-    updateSendTo
+    updateSendTo,
+    clearLetterContext
 } = letterSlicer.actions
 
 export const selectWriteTittle = state => state.write?.title
