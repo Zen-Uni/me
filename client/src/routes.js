@@ -9,6 +9,8 @@ import LoginAndRegister from "./pages/LoginAndRegister"
 import Main from "./pages/Main/index.jsx"
 import PoolPage from "./pages/PoolPage"
 import PostPage from "./pages/PostPage"
+import AreaPool from './pages/PoolPage/AreaPool'
+import PublicPool from "./pages/PoolPage/PublicPool"
 
 const routes = [
     {
@@ -43,6 +45,22 @@ const routes = [
         element: (
             <AuthCom>
                 <PoolPage/>
+            </AuthCom>
+        )
+    },
+    {
+        path: '/pool/area',
+        element: (
+            <AuthCom>
+                <AreaPool/>
+            </AuthCom>
+        )
+    },
+    {
+        path: '/pool/public',
+        element: (
+            <AuthCom>
+                <PublicPool/>
             </AuthCom>
         )
     }

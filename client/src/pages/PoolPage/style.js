@@ -19,3 +19,27 @@ export const PoolPageWrapper = styled.div`
     align-items: center;
     flex-direction: column;
 `
+
+export const PoolButtonWrapper = styled.div`
+    position: relative;
+    width: 70%;
+    margin: 20px 0px;
+    & .item {
+        height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 7px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, .7);
+    }
+
+    & .public-item {
+        background-color: black;
+    }
+
+    & .area-item {
+        background-color: #00a8ab;
+    }
+`

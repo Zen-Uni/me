@@ -182,6 +182,18 @@ class LetterCtrl {
            ctx.body = new ErrorModel("信件寄送失败，请稍后再试!")
         }
     }
+
+    async getPublicNum(ctx, next) {
+        try {  
+            const num = await Letter.find();
+            console.log('letter number ---- ', num.length);
+            ctx.body = new SuccessModel({
+                data: num.length
+            }, '获取信件数量成功！')
+        } catch (err) {
+            ctx.body = new ErrorModel('哎呀，送信员偷懒去啦~')
+        }
+    }
 }
 
 

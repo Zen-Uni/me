@@ -58,3 +58,8 @@ export const postSelfStatusReq = async (data, url = '/letter/self/status') => {
 export const postSelfDateReq = async (data, url = '/letter/self/date') => {
     return await post(url, data)
 }
+
+// 获取公共信池的信件数量
+export const getPublicLetterNum = async (url = '/letter/public/num') => {
+    return await get(url)
+}
