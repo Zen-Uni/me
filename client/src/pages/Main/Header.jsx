@@ -12,6 +12,10 @@ export default function Header() {
 
     const [isSlide, setIsSlide] = useState(false);
 
+    const [selected, setSelected] = useState(true);
+
+    const [status, setStatus] = useState(true);
+
     const handleCancelSlide = () => {
         setIsSlide(false)
     }
@@ -22,10 +26,17 @@ export default function Header() {
                 <i className='iconfont icon-liebiao'></i>
             </div>
             <div className='option'>
-                <div className='box item'>收信</div>
-                <div className='friend item'>信友</div>
+                <div className={selected ? 'select-item' : 'select-item selected-item'}></div>
+                <div className={selected ? 'selected item'  : 'item'} onClick={() => setSelected(true)}>收信</div>
+                <div className={selected ? 'item' : 'selected item'} onClick={() => setSelected(false)}>信友</div>
             </div>
-            <div>123</div>
+            <div className='status'>
+                {
+                    status ? 
+                    <i className='iconfont icon-taiyang positive' onClick={() => setStatus(false)}></i> :
+                    <i className='iconfont icon-yueliang negative' onClick={() => setStatus(true)}></i>
+                }
+            </div>
             <Slider isSlide={isSlide} onChange={handleCancelSlide}/>
         </HeaderWrapper>
     )

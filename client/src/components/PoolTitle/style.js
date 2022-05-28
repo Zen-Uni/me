@@ -13,4 +13,6 @@ export const PoolTitleWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 300;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
 `

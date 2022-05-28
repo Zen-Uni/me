@@ -20,7 +20,9 @@ export default function Pool() {
             <div 
                 className="button" 
                 onClick={handleClick}
-            >漫游</div>
+            >
+                <i className='iconfont icon-yongyan'></i>
+            </div>
         </PoolWrapper>
     )
 }

@@ -12,7 +12,7 @@ export default function PoolPage() {
     return (
         <PoolPageWrapper>
             <RollBack/>
-            <PoolTitle text="信池"/>
+            <PoolTitle text="区域信池"/>
             <PoolSelect/>
         </PoolPageWrapper>
     )

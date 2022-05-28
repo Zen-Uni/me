@@ -17,7 +17,9 @@ export default function Post() {
 
     return (
         <PostWrapper>
-            <div className="button" onClick={handleClick}>写信</div>
+            <div className="button" onClick={handleClick}>
+                <i className='iconfont icon-tianjia'></i>
+            </div>
         </PostWrapper>
     )
 }
