@@ -194,6 +194,15 @@ class LetterCtrl {
             ctx.body = new ErrorModel('哎呀，送信员偷懒去啦~')
         }
     }
+
+    // TODO: 区域信池信件数量组件
+    async getAreaNum(ctx, next) {
+        try {
+            
+        } catch (err) {
+
+        }
+    }
 }
 
 

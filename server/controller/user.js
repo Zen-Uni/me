@@ -10,6 +10,7 @@ const { ErrorModel, SuccessModel } = require('../utils/res_model')
 const { createToken } = require('../utils/token')
 const { stringReqT } = require('./config/paramsVerifyList')
 
+const path = require('path')
 class UserCtrl {
 
     // 获取用户信息
@@ -82,6 +83,20 @@ class UserCtrl {
         ctx.body = new SuccessModel({
             token
         }, "登录成功")
+    }
+
+    // 头像上传
+    async uploadAvatar(ctx, next) { 
+        try {
+            const file = ctx.request.files.file
+            const basename = path.basename(file.filepath)
+            const url = `${ctx.origin}/uploads/${basename}`
+            ctx.body = new SuccessModel({
+                url
+            }, '头像上传成功')
+        } catch (err) {
+            ctx.body = new ErrorModel('头像上传失败')
+        }
     }
 }
 

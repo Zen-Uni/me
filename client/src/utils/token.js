@@ -26,6 +26,8 @@ export const configReq = () => {
     } 
 }
 
+export const deleteToken = () => window.localStorage.removeItem(site);
+
 export const removeToken = () => {
     return window.localStorage.removeItem(site)
 }

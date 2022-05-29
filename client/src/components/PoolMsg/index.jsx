@@ -6,7 +6,7 @@
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getPublicLetterNum } from "../../service";
+import { getAreaLetterNum, getPublicLetterNum } from "../../service";
 import { selectUser } from "../../store/userReducer";
 import { PoolMsgWrapper } from "./style";
 
@@ -43,7 +43,26 @@ const PublicPoolMsg = () => {
 }
 
 const AreaPoolMsg = () => {
+    const [letterNum, setLetterNum] = useState('0')
+    const { loading, run } = useRequest(getAreaLetterNum, {
+        manual: true,
+        onSuccess: ({ data }) => {
+            setLetterNum(data.data)
+            console.log(data)
+        }
+    })
 
+    useEffect(() => {
+        run()
+    }, [])  
+
+    if (loading) {
+        return null
+    }
+
+    return (
+        <i>{letterNum} 篇</i>
+    )
 }
 
 

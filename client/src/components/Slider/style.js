@@ -23,6 +23,16 @@ export const SlideWrapper = styled.div`
         border-radius: 0px solid rgba(0, 0, 0, .15);
         box-shadow: 0 0 5px rgba(0, 0, 0, .6);
         margin: 10px auto;
+        position: relative;
+        overflow: hidden;
+
+        & .upload {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            border-radius: 85px;
+        }
     }
 
     & .headline {

@@ -3,7 +3,7 @@
  * @author Uni
  */
 
-const { register, login, getUser } = require('../controller/user')
+const { register, login, getUser, uploadAvatar } = require('../controller/user')
 const { auth } = require('../middleware/auth')
 
 const router = require('koa-router')()
@@ -20,6 +20,7 @@ router.get('/auth', auth, getUser)
 
 router.post('/register', register)
 router.post('/login', login)
+router.post('/avatar', auth, uploadAvatar)
 
 
 
