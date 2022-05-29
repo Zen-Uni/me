@@ -4,43 +4,63 @@
  */
 
 import { Popover } from '@douyinfe/semi-ui'
+import { useState } from 'react'
 import { FeedButtonWrapper } from './style'
 
 
-const PositiveButton = () => {
+const PositiveButton = ({ setFeeded }) => {
     return (
-        <div className='feed-button'>
+        <div 
+            className='feed-button'
+            onClick={() => setFeeded(true)}
+        >
             积极
         </div>
     )
 }
 
-const NegativeButton = () => {
+const NegativeButton = ({ setFeeded }) => {
     return (
-        <div className='feed-button'>
+        <div 
+            className='feed-button'
+            onClick={() => setFeeded(true)}
+        >
             消极
         </div>
     )
 }
 
-const FeedBackPopover = () => {
+const FeedBackPopover = ({ setFeeded, feeded }) => {
     return (
         <FeedButtonWrapper>
-            <PositiveButton/>
-            <NegativeButton/>
+            {
+                feeded ? <FeededMsg/> : (
+                    <>
+                        <PositiveButton setFeeded={setFeeded}/>
+                        <NegativeButton setFeeded={setFeeded}/>
+                    </>
+                )
+            }
         </FeedButtonWrapper>
     )
 }
 
+const FeededMsg = () => {
+    return (
+        <div className='feed-button'>
+            已反馈
+        </div>
+    )
+}
+
 export default function FeedBack() {
+    const [feeded, setFeeded] = useState(false);
+
  
     return (
         <Popover 
-            content={<FeedBackPopover/>}
-            // style={{
-            //     height: '100px',
-            //     width: '100px'
-            // }}
+            content={<FeedBackPopover feeded={feeded} setFeeded={setFeeded}/>}
+            clickToHide={true}
         >
             <div 
                 className='button'
