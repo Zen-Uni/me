@@ -73,3 +73,18 @@ export const getAreaLetterNum = async (url = '/letter/area/num') => {
 export const postAvatar = async (data, url = '/user/avatar') => {
     return await post(url, data)
 }
+
+// 获取信池中的信件信息
+export const getPoolLetter = async (data, url = '/letter/pool') => {
+    return await post(url, data);
+}
+
+// 发送公共信池信件
+export const postPublicPool = async (data, url = '/letter/pool/public') => {
+    return await post(url, data);
+}
+
+// 发送区域信池信件 
+export const postAreaPool = async (data, url = '/letter/pool/area') => {
+    return await post(url, data);
+}

@@ -6,11 +6,11 @@
 import { LetterHeaderWrapper } from "./style";
 import Avatar from './image/avatar.jpg';
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/userReducer";
+import { selectCurrentLetter } from "../../store/readReducer";
 
 export default function LetterHeader() {
 
-    const { avatar_url } = useSelector(selectUser);
+    const { avatar_url, title } = useSelector(selectCurrentLetter);
 
     return (
         <LetterHeaderWrapper>
@@ -19,7 +19,7 @@ export default function LetterHeader() {
                     backgroundImage: `url(${avatar_url ? avatar_url : Avatar})`
                 }}
             ></div>
-            <div className='title'>123321</div>
+            <div className='title'>{title}</div>
         </LetterHeaderWrapper>
     )
 }

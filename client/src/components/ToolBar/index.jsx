@@ -10,7 +10,7 @@ import { selectWriteContext, selectWriteSendTo, selectWriteTittle, updateTitle }
 import { ToolBarWrapper } from "./style";
 import { useRequest } from 'ahooks'
 import { MODE_TYPE, selectPost } from "../../store/postReducer";
-import { postSelfDateReq, postSelfStatusReq } from "../../service";
+import { postAreaPool, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
 import useClearLetter from "../../hooks/useClearLetter";
 
 export default function ToolBar() {
@@ -41,12 +41,16 @@ export default function ToolBar() {
     }
 
     // req - post self status letter
-    const { run: runSelfStatus } = useRequest(postSelfStatusReq, config)
+    const { run: runSelfStatus } = useRequest(postSelfStatusReq, config);
 
     // req - post self date letter
-    const { run: runSelfDate } = useRequest(postSelfDateReq, config)
+    const { run: runSelfDate } = useRequest(postSelfDateReq, config);
 
-    // TODO: 其他类型信件的 req
+    // req - post public pool letter
+    const { run: runPublicPool } = useRequest(postPublicPool, config);
+
+    // req - post area pool letter
+    const { run: runAreaPool } = useRequest(postAreaPool, config);
 
 
     const handleCancel = () => {
@@ -83,10 +87,25 @@ export default function ToolBar() {
             return 
         }
 
-        if (postMode === MODE_TYPE.public) {       
-            return 
+        if (postMode === MODE_TYPE.public) {    
+            const data = {
+                title,
+                context
+            };
+            
+            runPublicPool(data);
+            return;
         }
 
+        if (postMode === MODE_TYPE.self) {
+            const data = {
+                title,
+                context
+            };
+
+            runAreaPool(data);
+            return;
+        }
 
         return Toast.error("报告！出现问题了！")
     }

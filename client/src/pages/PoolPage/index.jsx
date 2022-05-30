@@ -42,10 +42,13 @@ const PublicPoolButton = () => {
 
 const AreaPoolButton = () => {
 
-    const { areaX, areaY } = useSelector(selectUser)
-    const navigate = useNavigate()
+    const { areaX, areaY } = useSelector(selectUser);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const handleClick = () => {
-        navigate('/pool/area')
+        dispatch(updateMode(MODE_TYPE.area));
+        navigate('/pool/area');
     }
     return (
         <div 

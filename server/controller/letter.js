@@ -16,8 +16,18 @@ const LetterType = {
     self_date: 1,
     pool_public: 2,
     pool_area: 3
-}
+};
 
+const PoolLetterType = {
+    public: 'public',
+    area: 'area'
+};
+
+const LetterMode = {
+    pos: 'positive',
+    neg: 'negative',
+    wander: 'wander'
+}
 
 class LetterCtrl {
     async postSelfStatus(ctx, next) {
@@ -185,7 +195,9 @@ class LetterCtrl {
 
     async getPublicNum(ctx, next) {
         try {  
-            const num = await Letter.find();
+            const num = await Letter.find({
+                mode: LetterType.pool_public
+            });
             console.log('letter number ---- ', num.length);
             ctx.body = new SuccessModel({
                 data: num.length
@@ -201,6 +213,41 @@ class LetterCtrl {
             
         } catch (err) {
 
+        }
+    }
+
+    // 获取信池中的信件信息
+    async getPoolLetter(ctx, next) {
+        ctx.verifyParams({
+            type: stringReqT,
+            mode: stringReqT
+        })
+        // type: 信池类型； mode: 信件类型
+        const { type, mode } = ctx.request.body;
+
+        try {
+            // 公共信池
+            if (type === PoolLetterType.public) {
+                const _mode = 2;
+                // 漫游信件
+                if (mode === LetterMode.wander) {
+                    const res = await Letter.find({
+                        mode: _mode
+                    })
+                    .select('+status')
+                    .populate('owner');
+
+                    ctx.body = new SuccessModel({
+                        list: res
+                    }, '成功获取信件')
+                    return;
+                }
+                return;
+            }
+
+            ctx.body = new SuccessModel('没有更多信件了');
+        } catch (err) {
+            ctx.body = new ErrorModel('获取信件失败');
         }
     }
 }

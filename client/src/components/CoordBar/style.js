@@ -17,4 +17,7 @@ export const CoordBarWrapper = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 100;
+    font-style: 12px;
+    font-weight: 200;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
 `

@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     avatar_url: {
         type: String,
-        select: false
+        select: true
     },
     friends: {
         type: [
@@ -42,12 +42,12 @@ const userSchema = new Schema({
     },
     areaX: {
         type: Number,
-        select: false,
+        select: true,
         default: 0
     },    // 虚拟位置，x轴
     areaY: {
         type: Number,
-        select: false,
+        select: true,
         default: 0
     },    // 虚拟位置，y轴
 },

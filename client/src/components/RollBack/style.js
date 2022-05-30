@@ -9,7 +9,7 @@ export const RollBackWrapper = styled.div`
     height: 50px;
     width: 50px;
     position: fixed;
-    top: 20px;
+    top: 15px;
     left: 10px;
     display: flex;
     justify-content: center;
