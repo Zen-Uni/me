@@ -12,4 +12,12 @@ export const LetterPageWrapper = styled.div`
     top: 0;
     bottom: 0;
     background-color: #f0f0f0;
+
+    & .header-layer {
+        position: fixed;
+        height: 65px;
+        width: 100%;
+        background-color: #f0f0f0;
+        z-index: 100;
+    }
 `
