@@ -49,7 +49,8 @@ class UserCtrl {
                 email,
                 password,
                 areaX: createDefaultArea(-100, 100),
-                areaY: createDefaultArea(-100, 100)
+                areaY: createDefaultArea(-100, 100),
+                avatar_url: ''
             })
             .save()
 
@@ -71,7 +72,7 @@ class UserCtrl {
             email: stringReqT
         })
 
-        const user = await User.findOne(ctx.request.body)
+        const user = await User.findOne(ctx.request.body).select('+avatar_url')
         logger({user}) 
         if (!user) {
             return ctx.body = new ErrorModel('登录失败，请检查账号是否正确')
@@ -88,14 +89,21 @@ class UserCtrl {
     // 头像上传
     async uploadAvatar(ctx, next) { 
         try {
-            const file = ctx.request.files.file
-            const basename = path.basename(file.filepath)
-            const url = `${ctx.origin}/uploads/${basename}`
+            const _id = ctx.state.user._id;
+            const file = ctx.request.files.file;
+            const basename = path.basename(file.filepath);
+            const url = `${ctx.origin}/uploads/${basename}`;
+            await User.updateOne({
+                _id
+            }, {
+                avatar_url: url
+            });
+
             ctx.body = new SuccessModel({
                 url
-            }, '头像上传成功')
+            }, '头像上传成功');
         } catch (err) {
-            ctx.body = new ErrorModel('头像上传失败')
+            ctx.body = new ErrorModel('头像上传失败');
         }
     }
 }

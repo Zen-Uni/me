@@ -3,11 +3,12 @@
  * @author Uni
  */
 
- import { useSelector } from "react-redux";
+ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import PoolMsg from "../../components/PoolMsg";
 import PoolTitle from "../../components/PoolTitle";
 import RollBack from "../../components/RollBack";
+import { MODE_TYPE, updateMode } from "../../store/postReducer";
 import { selectUser } from "../../store/userReducer";
 import { PoolButtonWrapper, PoolPageWrapper } from "./style";
 
@@ -21,8 +22,11 @@ const PoolButton = ({ comp }) => {
 }
 
 const PublicPoolButton = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const handleClick = () => {
+        dispatch(updateMode(MODE_TYPE.public))
         navigate('/pool/public')
     }
 

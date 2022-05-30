@@ -11,7 +11,11 @@ export default function PoolSelect() {
     const navigate = useNavigate();
 
     const handleWander = () => {
-        navigate('/letter')
+        navigate('/letter');
+    }
+
+    const handlePost = () => {
+        navigate('/post');
     }
 
     return (
@@ -24,7 +28,7 @@ export default function PoolSelect() {
                 <div className="positive">积极信件</div>
                 <div className="negative">消极信件</div>
             </div>
-            <div className='send'>投递信件</div>
+            <div className='send' onClick={handlePost}>投递信件</div>
         </PoolSelectWrapper>
     )
 }

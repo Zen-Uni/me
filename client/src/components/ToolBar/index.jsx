@@ -83,7 +83,7 @@ export default function ToolBar() {
             return 
         }
 
-        if (postMode === MODE_TYPE.pool) {       
+        if (postMode === MODE_TYPE.public) {       
             return 
         }
 

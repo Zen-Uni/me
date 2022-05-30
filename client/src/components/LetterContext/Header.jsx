@@ -5,13 +5,18 @@
 
 import { LetterHeaderWrapper } from "./style";
 import Avatar from './image/avatar.jpg';
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/userReducer";
 
 export default function LetterHeader() {
+
+    const { avatar_url } = useSelector(selectUser);
+
     return (
         <LetterHeaderWrapper>
             <div className='avatar'
                 style={{
-                    backgroundImage: `url(${Avatar})`
+                    backgroundImage: `url(${avatar_url ? avatar_url : Avatar})`
                 }}
             ></div>
             <div className='title'>123321</div>

@@ -10,6 +10,9 @@ import PoolSelect from "../../components/PoolSelect";
  import { PoolPageWrapper } from "./style";
  
  export default function PublicPool() {
+
+    
+
      return (
          <PoolPageWrapper>
              <RollBack/>

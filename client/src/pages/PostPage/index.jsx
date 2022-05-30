@@ -13,7 +13,7 @@ import { MODE_TYPE, selectPost } from "../../store/postReducer";
 export default function PostPage() {
     const postStatus = useSelector(selectPost)
 
-    console.log(postStatus)
+    
 
     return (
         <>

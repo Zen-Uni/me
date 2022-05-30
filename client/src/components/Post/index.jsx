@@ -5,13 +5,15 @@
 
 import { PostWrapper } from "./style";
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { MODE_TYPE, updateMode } from "../../store/postReducer";
 
 export default function Post() {
-
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleClick = () => {
+        dispatch(updateMode(MODE_TYPE.self))
         navigate('/post')
     }
 

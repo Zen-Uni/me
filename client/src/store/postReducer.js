@@ -7,7 +7,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const MODE_TYPE = {
     self: "/post/self",
-    pool: "/post/pool",
+    public: "/post/public",
+    area: '/post/area',
     friend: "/post/friend"
 }
 
