@@ -12,10 +12,11 @@ export const readSlicer = createSlice({
         current: {
             title: '',
             context: '',
-            owner: '',
+            owner: '',  // 作者的 ID
             avatar_url: '',
             areaX: '',
-            areaY: ''
+            areaY: '',
+            _id: ''   // 信件的 ID，用于反馈、举报
         }
     },
     reducers: {
@@ -27,14 +28,15 @@ export const readSlicer = createSlice({
             const index = Math.floor(Math.random() * len);
             const data = state.list[index];
             state.list.splice(index, 1);
-            const { context, title, owner } = data;
+            const { context, title, owner, _id } = data;
             const res = {
                 context,
                 title,
                 owner: owner._id,
                 avatar_url: owner.avatar_url,
                 areaX: owner.areaX,
-                areaY: owner.areaY
+                areaY: owner.areaY,
+                _id
             }
             state.current = res;
         }
@@ -47,5 +49,6 @@ export const {
 } = readSlicer.actions;
 
 export const selectCurrentLetter = state => state?.read?.current;
+export const selectLetterList = state => state?.read?.list;
 
 export default readSlicer.reducer;

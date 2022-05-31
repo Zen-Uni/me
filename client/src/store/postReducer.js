@@ -9,7 +9,8 @@ export const MODE_TYPE = {
     self: "/post/self",
     public: "/post/public",
     area: '/post/area',
-    friend: "/post/friend"
+    friend: "/post/friend",
+    reply: '/post/reply'
 }
 
 

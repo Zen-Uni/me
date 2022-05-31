@@ -88,3 +88,13 @@ export const postPublicPool = async (data, url = '/letter/pool/public') => {
 export const postAreaPool = async (data, url = '/letter/pool/area') => {
     return await post(url, data);
 }
+
+// 信池回信
+export const postPoolReply = async (data, url = '/letter/reply/pool') => {
+    return await post(url, data);
+}
+
+// 检查是否回信
+export const postCheckReply = async (data, url = '/letter/reply/check') => {
+    return await post(url, data);
+}

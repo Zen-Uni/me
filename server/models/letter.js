@@ -22,7 +22,7 @@ const letterSchema = new Schema({
     },
     // 信件类型
     mode: {
-        type: Number,  // 0: 给自己(无时间戳) | 1: 给自己(有时间戳) | 2: 公共信池 | 3: 区域信池
+        type: Number,  // 0: 给自己(无时间戳) | 1: 给自己(有时间戳) | 2: 公共信池 | 3: 区域信池 | 4: 回信
         required: true
     },
     // 自己是否可见

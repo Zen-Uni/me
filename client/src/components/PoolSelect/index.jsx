@@ -25,7 +25,9 @@ export default function PoolSelect() {
             dispatch(setCurrent());
             navigate('/letter');
         },
-        onError: () => {}
+        onError: () => {
+            Toast.warning('信件获取失败');
+        }
     });
     const handleWander = () => {
         const _mode = 'wander';

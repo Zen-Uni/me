@@ -7,6 +7,7 @@ const axios = require('axios');
 const BERT_API = require('../config/bert');
 
 const Letter = require("../models/letter");
+const Reply = require('../models/relay');
 const User = require("../models/user");
 const { SuccessModel, ErrorModel } = require("../utils/res_model");
 const { stringReqT } = require("./config/paramsVerifyList")
@@ -239,7 +240,7 @@ class LetterCtrl {
 
                     ctx.body = new SuccessModel({
                         list: res
-                    }, '成功获取信件')
+                    }, '成功获取信件');
                     return;
                 }
                 return;
@@ -248,6 +249,86 @@ class LetterCtrl {
             ctx.body = new SuccessModel('没有更多信件了');
         } catch (err) {
             ctx.body = new ErrorModel('获取信件失败');
+        }
+    }
+
+    // 信池回信
+    async PoolReply(ctx, next) {
+        ctx.verifyParams({
+            title: stringReqT,
+            context: stringReqT,
+            replyed_id: stringReqT,
+            letter_id: stringReqT
+        });
+        
+        try {
+            const user_id = ctx.state.user._id;
+            const { title, context, replyed_id, letter_id } = ctx.request.body;
+            const arr = [];
+            arr.push(user_id); arr.push(replyed_id);
+            arr.sort();
+            const identify_id = arr[0] + arr[1];
+    
+            const { _id } = await new Letter({
+                title,
+                context,
+                owner: user_id,
+                mode: 4
+            })
+            .save();
+    
+            const reply = await new Reply({
+                owner_id: user_id,
+                letter_id: _id,
+                identify_id
+            })
+            .save();
+    
+            await Letter.updateOne({
+                _id: letter_id
+            }, {
+                $inc: { repliers: 1 }
+            });
+
+            ctx.body = new SuccessModel('回信成功，成为信友！');
+        } catch (err) {
+            ctx,body = new ErrorModel('回信失败');
+        }
+    }
+
+    async checkLetterReplay (ctx, next) {
+        ctx.verifyParams({
+            owner_id: stringReqT
+        });
+
+        try {
+            const user_id = ctx.state.user._id;
+            const { owner_id } = ctx.request.body;
+            if (user_id === owner_id) {
+                ctx.body = new ErrorModel('无法与自己建立信友关系');
+                return;
+            }
+            const arr = [];
+            arr.push(user_id); arr.push(owner_id);
+            arr.sort();
+            const identify_id = arr[0] + arr[1];
+
+            const res = await Reply.find({
+                identify_id
+            });
+            
+            if (res.length === 0) {
+                ctx.body = new SuccessModel({
+                    replyed: 0
+                }, '尚未建立信友关系');
+                return;
+            }
+            ctx.body = new SuccessModel({
+                replyed: 1
+            }, '已建立信友关系');
+        } catch (err) {
+            ctx.body = new ErrorModel('回信功能出现问题');
+            console.log(err);
         }
     }
 }

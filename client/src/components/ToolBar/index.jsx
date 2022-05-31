@@ -10,8 +10,9 @@ import { selectWriteContext, selectWriteSendTo, selectWriteTittle, updateTitle }
 import { ToolBarWrapper } from "./style";
 import { useRequest } from 'ahooks'
 import { MODE_TYPE, selectPost } from "../../store/postReducer";
-import { postAreaPool, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
+import { postAreaPool, postPoolReply, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
 import useClearLetter from "../../hooks/useClearLetter";
+import { selectCurrentLetter } from "../../store/readReducer";
 
 export default function ToolBar() {
     
@@ -20,13 +21,16 @@ export default function ToolBar() {
     const context = useSelector(selectWriteContext)
     const sendTo = useSelector(selectWriteSendTo)
     const postMode = useSelector(selectPost)
+    const { owner, _id } = useSelector(selectCurrentLetter);
     const dispatch = useDispatch()
     const clearSideEffect = useClearLetter()
+
+
     // 信件投递反馈表现
     const onSuccess = ({ msg }) => {
         Toast.success(msg)
         clearSideEffect()
-        navigate(-1)
+        navigate('/')
     }   
     const onError = ({ response }) => {
         Toast.warning(response.data.msg)
@@ -52,6 +56,8 @@ export default function ToolBar() {
     // req - post area pool letter
     const { run: runAreaPool } = useRequest(postAreaPool, config);
 
+    // req - post pool reply
+    const { run: runPoolReply } = useRequest(postPoolReply, config);
 
     const handleCancel = () => {
         navigate(-1)
@@ -104,6 +110,18 @@ export default function ToolBar() {
             };
 
             runAreaPool(data);
+            return;
+        }
+
+        if (postMode === MODE_TYPE.reply) {
+            const data = {
+                title,
+                context,
+                replyed_id: owner,
+                letter_id: _id
+            };
+
+            runPoolReply(data);
             return;
         }
 
