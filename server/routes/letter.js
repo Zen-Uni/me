@@ -5,12 +5,13 @@
 
 const router = require('koa-router')();
 
-const { postSelfStatus, postSelfDate, postPoolPublic, postPoolArea, getPublicNum, getAreaNum, getPoolLetter, PoolReply, checkLetterReplay } = require('../controller/letter');
+const { postSelfStatus, postSelfDate, postPoolPublic, postPoolArea, getPublicNum, getAreaNum, getPoolLetter, PoolReply, checkLetterReplay, getSelfList } = require('../controller/letter');
 const { auth } = require('../middleware/auth');
 
 router.prefix('/letter');
 
 router.get('/public/num', getPublicNum);
+router.get('/list/self', auth, getSelfList);
 
 router.post('/area/num', auth, getAreaNum);
 router.post('/pool', getPoolLetter);

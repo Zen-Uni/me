@@ -2,6 +2,13 @@
  * @description 信箱列表
  */
 
+import { useRequest } from "ahooks"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router"
+import { getSelfList } from "../../service"
+import { setList, setSelfRead } from "../../store/readReducer"
+import { selectUser } from "../../store/userReducer"
 import { LetterListWrapper, ListItemWrapper } from "./style"
 
 // mock 数据
@@ -68,14 +75,32 @@ const mock = [
 ]
 
 // const fastMock = [1, 2 ,3 ,4 ,6,5,7, 7, 7, 7, 7 ,7 ,7,7];
+const text_type_date = '给过去的自己回封信吧';
+const text_type_status = '未来的你，请查收';
 
 const ListItem = ({item}) => {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const date = new Date(item.createdAt);
+    const sendTime = `${date.getDate()}, ${date.getMonth()}, ${date.getFullYear()}`;
+    const data = {
+        title: item.title,
+        context: item.context,
+        self: true,
+        areaX: item.owner.areaX,
+        areaY: item.owner.areaY,
+        avatar_url: item.owner.avatar_url
+    }
+    const handleClick = (data) => {
+        console.log(123)
+        dispatch(setSelfRead(data));
+        navigate('/letter')
+    }
     return (
-        <ListItemWrapper>
+        <ListItemWrapper onClick={() => handleClick(data)}>
             <div className='color-type'
                 style={{
-                    backgroundColor: item.color,
+                    backgroundColor: item.mode ?'#70acc4' : '#88cfbf',
                     opacity: '.8'
                 }}
             ></div>
@@ -84,7 +109,7 @@ const ListItem = ({item}) => {
                   {item.title}
                 </div>
                 <div className='description'>
-                    {item.type + '···' + item.sendTime}
+                    {item.mode ? text_type_date : text_type_status + ' ··· ' + sendTime}
                 </div>
             </div>
             <div className='time-box'></div>
@@ -93,13 +118,29 @@ const ListItem = ({item}) => {
 }
 
 export default function LetterList() {
+    const [list, setList] = useState([]);
+    const { run, loading } = useRequest(getSelfList, {
+        manual: true,
+        onSuccess: ({ data }) => {
+            console.log(data);
+            setList(data.list);
+        }
+    })
+
+    useEffect(() => {
+        run();
+    }, [])
+
+ 
 
     return (
         <LetterListWrapper>
           {
-            mock.map(item => (
-                <ListItem item={item} key={item.title + item.sendTime}/>
-            ))
+            list.map(item => {
+                
+
+                return <ListItem item={item} key={item._id} />
+            })
           }
         </LetterListWrapper>
     )

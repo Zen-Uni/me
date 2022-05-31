@@ -39,16 +39,22 @@ export const readSlicer = createSlice({
                 _id
             }
             state.current = res;
+        },
+        setSelfRead: (state, action) => {
+            console.log(action.payload);
+            state.current = action.payload;
         }
     }
 });
 
 export const {
     setList,
-    setCurrent
+    setCurrent,
+    setSelfRead
 } = readSlicer.actions;
 
 export const selectCurrentLetter = state => state?.read?.current;
 export const selectLetterList = state => state?.read?.list;
+
 
 export default readSlicer.reducer;

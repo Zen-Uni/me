@@ -98,3 +98,8 @@ export const postPoolReply = async (data, url = '/letter/reply/pool') => {
 export const postCheckReply = async (data, url = '/letter/reply/check') => {
     return await post(url, data);
 }
+
+// 获取信件列表
+export const getSelfList = async (url = '/letter/list/self') => {
+    return await get(url);
+}

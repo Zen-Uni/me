@@ -63,7 +63,8 @@ class LetterCtrl {
                     mode: LetterType.self_status,
                     status,
                     relativePos,
-                    relativeNav
+                    relativeNav,
+                    send_status: 0
                 })
                 .save()
     
@@ -374,6 +375,49 @@ class LetterCtrl {
             ctx.body = new ErrorModel('回信功能出现问题');
             console.log(err);
         }
+    }
+
+
+    async getSelfList(ctx, next) {
+       try {
+            const _id = ctx.state.user._id;
+                
+            const { status } = await User.findOne({ _id });
+
+            const letters = await Letter.find({
+                owner: _id
+            })
+            .select('+sendTo')
+            .populate('owner')
+            .sort({'_id': -1});
+
+            const res = letters.filter(item => {
+                const time = new Date();
+                if (item.mode === LetterType.self_date) {
+                    const date = new Date(item.sendTo);
+                    console.log(item.sendTo);
+                    console.log(time);
+                    if (date < time) return true;
+                    console.log('trigger ---- ');
+                    return false;
+                }
+                if (item.mode === LetterType.self_status) {
+                    if (item.send_status === 1 && status !== item.status) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                return false;
+            });
+
+            ctx.body = new SuccessModel({
+                list: res
+            }, '信件获取成功');
+       } catch (err) {
+            console.log(err);
+            ctx.body = new ErrorModel('信件获取失败');
+       }
     }
 }
 

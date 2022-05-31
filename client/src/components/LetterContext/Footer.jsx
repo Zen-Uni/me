@@ -13,6 +13,11 @@ import { selectCurrentLetter, selectLetterList, setCurrent } from "../../store/r
 import { FooterWrapper } from "./style";
 
 export default function Footer() {
+    const { self } = useSelector(selectCurrentLetter);
+    if (self) {
+        return null;
+    }    
+
     return (
         <FooterWrapper>
             <WriteBack/>
