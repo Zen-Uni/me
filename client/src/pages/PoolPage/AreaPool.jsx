@@ -3,12 +3,23 @@
  * @author Uni
  */
 
- import PoolSelect from "../../components/PoolSelect";
+ import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import PoolSelect from "../../components/PoolSelect";
  import PoolTitle from "../../components/PoolTitle";
  import RollBack from "../../components/RollBack";
+import { MODE_TYPE, updateMode } from "../../store/postReducer";
  import { PoolPageWrapper } from "./style";
  
  export default function AreaPool() {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(updateMode(MODE_TYPE.area));
+    }, []);
+
+
      return (
          <PoolPageWrapper>
              <RollBack/>
