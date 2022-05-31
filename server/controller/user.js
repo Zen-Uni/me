@@ -106,6 +106,24 @@ class UserCtrl {
             ctx.body = new ErrorModel('头像上传失败');
         }
     }
+
+    // 获取信友列表
+    async getFriendList(ctx, next) {
+        const _id = ctx.state.user._id;
+
+        try {
+            const res = await User.findById(_id)
+            .select('+friends')
+            .populate('friends');
+
+            ctx.body = new SuccessModel({
+                list: res.friends
+            }, '获取信友列表成功');
+        } catch (err) {
+            console.log(err);
+            ctx.body = new ErrorModel('信友列表获取失败');
+        }
+    }
 }
 
 

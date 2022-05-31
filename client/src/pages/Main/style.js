@@ -104,3 +104,72 @@ export const ListWrapper = styled.div`
     overflow-x: hidden;
     overflow-y: scroll;
 `
+
+// Friend 样式
+export const FriendWrapper = styled.div`
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    & .item {
+        height: 110px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 0px 10px 0px 20px;
+        position: relative;
+
+
+        &::after {
+            content: ' ';
+            display: block;
+            height: 1px;
+            width: 320px;
+            background-color: rgba(0, 0, 0, .1);
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            margin-left: -160px;
+        }
+
+        & .avatar {
+            height: 80px;
+            width: 80px;
+            border-radius: 80px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, .5);
+        }
+
+        & .username {
+            height: 80px;
+            width: 150px;
+            /* background-color: white; */
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 300;
+            text-shadow: 0px 0px 3px rgba(0, 0, 0, .7);
+        }
+
+        & .coord {
+            height: 80px;
+            width: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 0px 0px 3px rgba(0, 0, 0, .5);
+
+        }
+    }
+
+`

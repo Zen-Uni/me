@@ -3,12 +3,12 @@
  * @author Uni
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "../../components/Slider";
 import { HeaderWrapper } from "./style";
 
 
-export default function Header() {
+export default function Header({ setChange }) {
 
     const [isSlide, setIsSlide] = useState(false);
 
@@ -19,6 +19,10 @@ export default function Header() {
     const handleCancelSlide = () => {
         setIsSlide(false)
     }
+
+    useEffect(() => {
+        setChange(!selected);
+    }, [selected])
 
     return (
         <HeaderWrapper>

@@ -211,7 +211,6 @@ class LetterCtrl {
         }
     }
 
-    // TODO: 区域信池信件数量组件
     async getAreaNum(ctx, next) {
         ctx.verifyParams({
             areaX: numberReqT,
@@ -334,9 +333,20 @@ class LetterCtrl {
                 areaY
             });
 
+            const userA = await User.findById(user_id)
+            .select('+friends');
+
+            userA.friends.push(replyed_id);
+
+            const userB = await User.findById(replyed_id).select('+friends');
+            userB.friends.push(user_id);
+
+            userA.save();
+            userB.save();
+
             ctx.body = new SuccessModel('回信成功，成为信友！');
         } catch (err) {
-            ctx,body = new ErrorModel('回信失败');
+            ctx.body = new ErrorModel('回信失败');
             console.log(err);
         }
     }

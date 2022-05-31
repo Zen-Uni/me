@@ -103,3 +103,8 @@ export const postCheckReply = async (data, url = '/letter/reply/check') => {
 export const getSelfList = async (url = '/letter/list/self') => {
     return await get(url);
 }
+
+// 获取信友列表
+export const getFriendList = async (url = '/user/friend/list') => {
+    return await get(url);
+}
