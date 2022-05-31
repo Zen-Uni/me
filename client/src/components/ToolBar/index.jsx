@@ -13,6 +13,7 @@ import { MODE_TYPE, selectPost } from "../../store/postReducer";
 import { postAreaPool, postPoolReply, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
 import useClearLetter from "../../hooks/useClearLetter";
 import { selectCurrentLetter } from "../../store/readReducer";
+import { selectUser } from "../../store/userReducer";
 
 export default function ToolBar() {
     
@@ -21,7 +22,8 @@ export default function ToolBar() {
     const context = useSelector(selectWriteContext)
     const sendTo = useSelector(selectWriteSendTo)
     const postMode = useSelector(selectPost)
-    const { owner, _id } = useSelector(selectCurrentLetter);
+    const { owner, _id, areaX: a, areaY: b } = useSelector(selectCurrentLetter);
+    const { areaX: x, areaY: y } = useSelector(selectUser);
     const dispatch = useDispatch()
     const clearSideEffect = useClearLetter()
 
@@ -103,7 +105,7 @@ export default function ToolBar() {
             return;
         }
 
-        if (postMode === MODE_TYPE.self) {
+        if (postMode === MODE_TYPE.area) {
             const data = {
                 title,
                 context
@@ -118,7 +120,11 @@ export default function ToolBar() {
                 title,
                 context,
                 replyed_id: owner,
-                letter_id: _id
+                letter_id: _id,
+                a,
+                b,
+                x,
+                y
             };
 
             runPoolReply(data);

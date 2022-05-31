@@ -9,14 +9,16 @@ const BERT_API = require('../config/bert');
 const Letter = require("../models/letter");
 const Reply = require('../models/relay');
 const User = require("../models/user");
+const CoordTransformer = require('../utils/coord_transformer');
 const { SuccessModel, ErrorModel } = require("../utils/res_model");
-const { stringReqT } = require("./config/paramsVerifyList")
+const { stringReqT, numberReqT } = require("./config/paramsVerifyList")
 
 const LetterType = {
     self_status: 0,
     self_date: 1,
     pool_public: 2,
-    pool_area: 3
+    pool_area: 3,
+    pool_reply: 4
 };
 
 const PoolLetterType = {
@@ -258,22 +260,28 @@ class LetterCtrl {
             title: stringReqT,
             context: stringReqT,
             replyed_id: stringReqT,
-            letter_id: stringReqT
+            letter_id: stringReqT,
+            a: numberReqT,
+            b: numberReqT,
+            x: numberReqT,
+            y: numberReqT
         });
         
         try {
             const user_id = ctx.state.user._id;
-            const { title, context, replyed_id, letter_id } = ctx.request.body;
+            const { title, context, replyed_id, letter_id, a, b, x, y } = ctx.request.body;
             const arr = [];
             arr.push(user_id); arr.push(replyed_id);
             arr.sort();
             const identify_id = arr[0] + arr[1];
+            const { areaX, areaY } = CoordTransformer(a, b, x, y, 2);   // 信池回信的权重为 2
+
     
             const { _id } = await new Letter({
                 title,
                 context,
                 owner: user_id,
-                mode: 4
+                mode: LetterType.pool_reply
             })
             .save();
     
@@ -290,9 +298,18 @@ class LetterCtrl {
                 $inc: { repliers: 1 }
             });
 
+            // 更新虚拟坐标
+            await User.updateOne({
+                _id: user_id
+            }, {
+                areaX,
+                areaY
+            });
+
             ctx.body = new SuccessModel('回信成功，成为信友！');
         } catch (err) {
             ctx,body = new ErrorModel('回信失败');
+            console.log(err);
         }
     }
 

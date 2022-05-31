@@ -14,7 +14,10 @@ const stringReqF = {
     require: false
 }
 
-
+const numberReqT = {
+    type: 'number',
+    require: true
+}
 
 
 //用户名
@@ -30,5 +33,6 @@ const stringReqF = {
 
 module.exports = {
     stringReqF,
-    stringReqT
+    stringReqT,
+    numberReqT
 }
