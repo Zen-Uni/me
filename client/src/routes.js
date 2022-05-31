@@ -12,6 +12,7 @@ import PostPage from "./pages/PostPage"
 import AreaPool from './pages/PoolPage/AreaPool'
 import PublicPool from "./pages/PoolPage/PublicPool"
 import LetterPage from "./pages/LetterPage"
+import FriendPage from "./pages/FriendPage"
 
 const routes = [
     {
@@ -70,6 +71,14 @@ const routes = [
         element: (
             <AuthCom>
                 <LetterPage/>
+            </AuthCom>
+        )
+    },
+    {
+        path: '/friend',
+        element: (
+            <AuthCom>
+                <FriendPage/>
             </AuthCom>
         )
     }

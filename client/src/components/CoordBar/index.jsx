@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import { selectCurrentLetter } from "../../store/readReducer";
 import { CoordBarWrapper } from "./style";
 
-export default function CoordBar() {
+export default function CoordBar({ username }) {
     const { areaX, areaY } = useSelector(selectCurrentLetter);
     return (
         <CoordBarWrapper>
-            <div>({areaX.toFixed(2)}, {areaY.toFixed(2)})</div>
+            { username ? <div>{username}</div> : <div>({areaX.toFixed(2)}, {areaY.toFixed(2)})</div> }
         </CoordBarWrapper>
     )
 }

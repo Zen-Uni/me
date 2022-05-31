@@ -16,8 +16,11 @@ export const userSlicer = createSlice({
             areaX: '',
             areaY: '',
             avatar_url: ''
+        },
+        friend: {
+            username: '',
+            _id: ''
         }
-        
     },
     reducers: {
         config: (state, action) => {
@@ -25,16 +28,21 @@ export const userSlicer = createSlice({
         },
         updateAvatar: (state, action) => {
            state.value.avatar_url = action.payload
+        },
+        updateFriend: (state, action) => {
+            state.friend = action.payload;
         }
     }
 })
 
 export const {
     config,
-    updateAvatar
+    updateAvatar,
+    updateFriend
 } = userSlicer.actions
 
-export const selectUser = (state) => state.user?.value
+export const selectUser = (state) => state.user?.value;
+export const selectFriend = state => state.user?.friend;
 // export const selectUserAvatar = state => state.user?.value?.avatar_url
 
 export default userSlicer.reducer

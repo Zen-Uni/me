@@ -108,3 +108,8 @@ export const getSelfList = async (url = '/letter/list/self') => {
 export const getFriendList = async (url = '/user/friend/list') => {
     return await get(url);
 }
+
+// 获取信友来往信件 
+export const getFriendLetter = async (data, url = '/letter/friend/context') => {
+    return await post(url, data);
+}

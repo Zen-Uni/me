@@ -8,6 +8,9 @@ import Avatar from './image/avatar.jpg';
 import { useRequest } from "ahooks";
 import { getFriendList } from "../../service";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { updateFriend } from "../../store/userReducer";
 
 
 
@@ -19,6 +22,9 @@ export default function Friend() {
             setList(data.list);
         }
     });    
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         run();
@@ -28,15 +34,19 @@ export default function Friend() {
         return null;
     }
 
-    const handleClick = () => {
-        
+    const handleClick = (item) => {
+        dispatch(updateFriend({
+            username: item.username,
+            _id: item._id
+        }))
+        navigate('/friend');
     }
 
     return (
         <FriendWrapper>
             {
                 list.map(item => (
-                    <div className='item' onClick={handleClick}>
+                    <div className='item' onClick={() => handleClick(item)}>
                         <div 
                             className='avatar'
                             style={{

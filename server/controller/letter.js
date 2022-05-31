@@ -429,6 +429,31 @@ class LetterCtrl {
             ctx.body = new ErrorModel('信件获取失败');
        }
     }
+
+
+    async getFriendLetter(ctx, next) {
+        const _id = ctx.state.user._id;
+        const {friend_id} = ctx.request.body;
+        const arr = [];
+        arr.push(_id); arr.push(friend_id);
+        arr.sort();
+        const identify_id = arr[0] + arr[1];
+
+        try {
+            const res = await Reply.find({
+                identify_id
+            })
+            .populate('letter_id')
+            .populate('owner_id')
+            .sort({'_id': -1});
+
+            ctx.body = new SuccessModel({
+                list: res
+            }, '获取来往信件成功');
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 
