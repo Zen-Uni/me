@@ -18,7 +18,8 @@ const LetterType = {
     self_date: 1,
     pool_public: 2,
     pool_area: 3,
-    pool_reply: 4
+    pool_reply: 4,
+    friend_send: 5
 };
 
 const PoolLetterType = {
@@ -452,6 +453,43 @@ class LetterCtrl {
             }, '获取来往信件成功');
         } catch (err) {
             console.log(err);
+        }
+    }
+
+
+    async sendLetterToFriend (ctx, next) {
+        ctx.verifyParams({
+            title: stringReqT,
+            context: stringReqT,
+            friend_id: stringReqT
+        });
+
+        try {
+            const _id = ctx.state.user._id;
+            const { friend_id, title, context } = ctx.request.body;
+            const letter = await new Letter({
+                title,
+                context,
+                owner: _id,
+                mode: LetterType.friend_send
+            })
+            .save();
+    
+            const arr = [];
+            arr.push(_id); arr.push(friend_id);
+            arr.sort();
+            const identify_id = arr[0] + arr[1];
+    
+            const reply = await new Reply({
+                identify_id,
+                owner_id: _id,
+                letter_id: letter._id
+            })
+            .save();
+            ctx.body = new SuccessModel('回信成功');
+        } catch (err) {
+            console.log(err);
+            ctx.body = new ErrorModel('回信失败');
         }
     }
 }

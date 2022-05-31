@@ -20,6 +20,7 @@ export const FriendPageWrapper = styled.div`
         z-index: 100;
         top: 0px;
     }
+    overflow: scroll;
 
     & .letter-item {
         /* height: 300px; */
@@ -28,7 +29,7 @@ export const FriendPageWrapper = styled.div`
         border-radius: 3px;
         box-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
         border: 1px solid rgba(0, 0, 0, .3);
-        margin: auto;
+        margin: 10px auto;
 
         & .header {
             height: 60px;
@@ -69,5 +70,22 @@ export const FriendPageWrapper = styled.div`
                 font-weight: 100;
             }
         }
+    }
+`
+
+export const WriteWrapper = styled.div`
+    height: 45px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    right: 7px;
+    z-index: 100;
+    & i{
+        font-size: 18px;
+        font-weight: 600;
+        text-shadow: 0px 0px 3px rgba(0, 0, 0, .3);
     }
 `

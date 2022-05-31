@@ -10,10 +10,10 @@ import { selectWriteContext, selectWriteSendTo, selectWriteTittle, updateTitle }
 import { ToolBarWrapper } from "./style";
 import { useRequest } from 'ahooks'
 import { MODE_TYPE, selectPost } from "../../store/postReducer";
-import { postAreaPool, postPoolReply, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
+import { postAreaPool, postLetterToFriend, postPoolReply, postPublicPool, postSelfDateReq, postSelfStatusReq } from "../../service";
 import useClearLetter from "../../hooks/useClearLetter";
 import { selectCurrentLetter } from "../../store/readReducer";
-import { selectUser } from "../../store/userReducer";
+import { selectFriend, selectUser } from "../../store/userReducer";
 
 export default function ToolBar() {
     
@@ -22,6 +22,7 @@ export default function ToolBar() {
     const context = useSelector(selectWriteContext)
     const sendTo = useSelector(selectWriteSendTo)
     const postMode = useSelector(selectPost)
+    const friend = useSelector(selectFriend);
     const { owner, _id, areaX: a, areaY: b } = useSelector(selectCurrentLetter);
     const { areaX: x, areaY: y } = useSelector(selectUser);
     const dispatch = useDispatch()
@@ -60,6 +61,9 @@ export default function ToolBar() {
 
     // req - post pool reply
     const { run: runPoolReply } = useRequest(postPoolReply, config);
+
+    // req - friend
+    const { run: runFriendLetter } = useRequest(postLetterToFriend, config);
 
     const handleCancel = () => {
         navigate(-1)
@@ -128,6 +132,17 @@ export default function ToolBar() {
             };
 
             runPoolReply(data);
+            return;
+        }
+
+        if (postMode === MODE_TYPE.friend) {
+            const data = {
+                title,
+                context,
+                friend_id: friend._id
+            };
+
+            runFriendLetter(data);
             return;
         }
 

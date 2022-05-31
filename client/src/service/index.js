@@ -113,3 +113,8 @@ export const getFriendList = async (url = '/user/friend/list') => {
 export const getFriendLetter = async (data, url = '/letter/friend/context') => {
     return await post(url, data);
 }
+
+// 发信件给信友
+export const postLetterToFriend = async (data, url = '/letter/friend/send') => {
+    return await post(url, data);
+}

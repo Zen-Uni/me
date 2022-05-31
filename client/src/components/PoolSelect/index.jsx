@@ -10,7 +10,7 @@ import { MODE_TYPE, selectPost } from "../../store/postReducer";
 import { useRequest } from 'ahooks';
 import { getPoolLetter } from "../../service";
 import { Toast } from "@douyinfe/semi-ui";
-import { selectLetterList, setCurrent, setList } from "../../store/readReducer";
+import { selectLetterList, setCurrent, setList, setNegative, setPositive } from "../../store/readReducer";
 
 export default function PoolSelect() {
     const dispatch = useDispatch();
@@ -52,6 +52,27 @@ export default function PoolSelect() {
         Toast.warning('鉴权失败')
     }
 
+    const handlePositive = () => {
+        dispatch(setPositive());
+        if (list.length === 0) {
+            return Toast.warning('当前区域没有积极信件了');
+        }
+        dispatch(setCurrent());
+        navigate('/letter');
+    }
+
+    const handleNegative = () => {
+        dispatch(setNegative());
+        if (list.length === 0) {
+            return Toast.warning('当前区域没有信件了');
+        }
+        dispatch(setCurrent());
+        navigate('/letter');
+    }
+
+
+
+
     const handlePost = () => {
         navigate('/post');
     }
@@ -63,8 +84,8 @@ export default function PoolSelect() {
                 onClick={handleWander}
             >开始漫游</div>
             <div className='category'>
-                <div className="positive">积极信件</div>
-                <div className="negative">消极信件</div>
+                <div className="positive" onClick={handlePositive}>积极信件</div>
+                <div className="negative" onClick={handleNegative}>消极信件</div>
             </div>
             <div className='send' onClick={handlePost}>投递信件</div>
         </PoolSelectWrapper>

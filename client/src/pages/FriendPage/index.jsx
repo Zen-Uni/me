@@ -11,6 +11,7 @@ import RollBack from "../../components/RollBack";
 import { getFriendLetter } from "../../service";
 import { selectFriend } from "../../store/userReducer";
 import { FriendPageWrapper } from "./style";
+import Write from "./Write";
 
 export default function FriendPage() {
     const friend = useSelector(selectFriend);
@@ -37,6 +38,7 @@ export default function FriendPage() {
             <div className='header-layer'></div>
             <RollBack/>
             <CoordBar username={friend.username}/>
+            <Write/>
             {
                 loading ? null
                 : 

@@ -43,6 +43,24 @@ export const readSlicer = createSlice({
         setSelfRead: (state, action) => {
             console.log(action.payload);
             state.current = action.payload;
+        },
+        setPositive: (state) => {
+            const list = state.list.filter(item => {
+                if (item.status === 0) {
+                    return true;
+                }
+                return false;
+            });
+            state.list = list;
+        },
+        setNegative: (state) => {
+            const list = state.list.filter(item => {
+                if (item.status === 1) {
+                    return true;
+                }
+                return false;
+            });
+            state.list = list;
         }
     }
 });
@@ -50,7 +68,9 @@ export const readSlicer = createSlice({
 export const {
     setList,
     setCurrent,
-    setSelfRead
+    setSelfRead,
+    setNegative,
+    setPositive
 } = readSlicer.actions;
 
 export const selectCurrentLetter = state => state?.read?.current;
