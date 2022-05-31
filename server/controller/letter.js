@@ -212,10 +212,37 @@ class LetterCtrl {
 
     // TODO: 区域信池信件数量组件
     async getAreaNum(ctx, next) {
-        try {
-            
-        } catch (err) {
+        ctx.verifyParams({
+            areaX: numberReqT,
+            areaY: numberReqT
+        });
 
+        try {
+            const { areaX, areaY } = ctx.request.body;
+            
+            const list = await Letter.find({
+                mode: LetterType.pool_area
+            })
+            .select('+owner +status')
+            .populate('owner');
+            console.log('area list ------- ', list);
+            const res = list.filter((item) => {
+                const a = item.owner.areaX;
+                const b = item.owner.areaY;
+                console.log(a ,b);
+                if ( a > areaX - 50 && a < areaX + 50 && b > areaY - 50 && b < areaY + 50) {
+                    return true;
+                }
+                return false;
+            })
+            console.log('area res ----- ', res);
+
+            ctx.body = new SuccessModel({
+                data: res
+            }, '获取成功');
+
+        } catch (err) {
+            console.log(err);
         }
     }
 

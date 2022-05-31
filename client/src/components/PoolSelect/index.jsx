@@ -10,12 +10,13 @@ import { MODE_TYPE, selectPost } from "../../store/postReducer";
 import { useRequest } from 'ahooks';
 import { getPoolLetter } from "../../service";
 import { Toast } from "@douyinfe/semi-ui";
-import { setCurrent, setList } from "../../store/readReducer";
+import { selectLetterList, setCurrent, setList } from "../../store/readReducer";
 
 export default function PoolSelect() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const mode = useSelector(selectPost);
+    const list = useSelector(selectLetterList);
     const { run, loading } = useRequest(getPoolLetter, {
         manual: true,
         onSuccess: ({ data }) => {
@@ -40,10 +41,12 @@ export default function PoolSelect() {
         }
 
         if (mode === MODE_TYPE.area) {
-            run({
-                type: 'area',
-                mode: _mode
-            });
+            if (list.length) {
+                dispatch(setCurrent());
+                navigate('/letter');
+                return;
+            }
+            Toast.warning('当前区域没有信件了')
             return;
         }
         Toast.warning('鉴权失败')

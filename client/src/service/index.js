@@ -65,8 +65,8 @@ export const getPublicLetterNum = async (url = '/letter/public/num') => {
 }
 
 // 获取区域信池的信件数量
-export const getAreaLetterNum = async (url = '/letter/area/num') => {
-    return await get(url)
+export const getAreaLetterNum = async (data, url = '/letter/area/num') => {
+    return await post(url, data);
 }
 
 // 上传头像

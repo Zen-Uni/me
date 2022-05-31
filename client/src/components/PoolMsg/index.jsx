@@ -5,8 +5,9 @@
 
 import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAreaLetterNum, getPublicLetterNum } from "../../service";
+import { setList } from "../../store/readReducer";
 import { selectUser } from "../../store/userReducer";
 import { PoolMsgWrapper } from "./style";
 
@@ -43,17 +44,23 @@ const PublicPoolMsg = () => {
 }
 
 const AreaPoolMsg = () => {
-    const [letterNum, setLetterNum] = useState('0')
+    const [letterNum, setLetterNum] = useState('0');
+    const { areaX, areaY } = useSelector(selectUser);
+    const dispatch = useDispatch();
     const { loading, run } = useRequest(getAreaLetterNum, {
         manual: true,
         onSuccess: ({ data }) => {
-            setLetterNum(data.data)
-            console.log(data)
+            setLetterNum(data.data?.length || '0');
+            dispatch(setList(data.data));
+            console.log(data?.data);
         }
     })
 
     useEffect(() => {
-        run()
+        run({
+            areaX,
+            areaY
+        })
     }, [])  
 
     if (loading) {

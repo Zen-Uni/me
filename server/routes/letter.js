@@ -11,10 +11,8 @@ const { auth } = require('../middleware/auth');
 router.prefix('/letter');
 
 router.get('/public/num', getPublicNum);
-router.get('/area/num', getAreaNum);
 
-
-
+router.post('/area/num', auth, getAreaNum);
 router.post('/pool', getPoolLetter);
 router.post('/self/status', auth, postSelfStatus);
 router.post('/self/date', auth, postSelfDate);
