@@ -7,7 +7,7 @@ import { useLayoutEffect } from "react"
 import { BrowserRouter, Routes } from "react-router-dom"
 import routes from "./routes"
 import renderRouter from "./utils/renderRouter"
-
+import pcroutes from './PC/pcroutes';
 
 
 
@@ -42,6 +42,12 @@ export function Main() {
 // PC 端挂载组件
 export function PCComponent() {
     return (
-        <div>请使用移动端设备访问</div>
+        <BrowserRouter>
+            <Routes>
+                {
+                    renderRouter(pcroutes)
+                }
+            </Routes>
+        </BrowserRouter>
     )
 }

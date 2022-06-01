@@ -12,7 +12,7 @@ import { useRequest } from 'ahooks';
 import { postAvatar } from '../../service';
 import { useEffect } from 'react';
 import { useLogOut } from '../../hooks/useLogCtl';
-
+// import { Toast } from '@douyinfe/semi-ui'
 export default function Slider({
     isSlide,
     onChange
@@ -74,10 +74,10 @@ export default function Slider({
                 <div className='headline'>
                     <i>{username} · ({areaX && areaX?.toFixed(2)}, {areaY && areaY?.toFixed(2)})</i>
                 </div>
-                <div className='item'>
+                <div className='item' onClick={() => Toast.error('此功能已下线')}>
                     账号设置
                 </div>
-                <div className='item'>
+                <div className='item' onClick={() => Toast.error('此功能已下线')}>
                     情绪监测
                 </div>
                 <div className='item'>

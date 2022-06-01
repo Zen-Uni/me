@@ -492,6 +492,39 @@ class LetterCtrl {
             ctx.body = new ErrorModel('回信失败');
         }
     }
+
+
+    async getAllLetter(ctx, next) {
+        const positive = await Letter.find({
+            mode: {
+                $in: [0, 2, 3]
+            }
+        }).select('+relativePos');
+        const negative = await Letter.find({
+            mode: {
+                $in: [0, 2, 3]
+            }
+        }).select('+relativeNav');
+
+        const res = [...positive, ...negative];
+
+        ctx.body = res;
+    }
+
+    async BadRport(ctx, next) {
+        const { _id } = ctx.request.body;
+        try {
+            await Letter.findOneAndUpdate({
+                _id
+            }, {
+                tag: 1
+            });
+            ctx.body = new SuccessModel('举报成功!');
+        } catch (err) {
+            console.log(err);
+            ctx.body = new ErrorModel('举报失败');
+        }
+    }
 }
 
 

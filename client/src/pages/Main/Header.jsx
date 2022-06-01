@@ -3,8 +3,11 @@
  * @author Uni
  */
 
+import { Toast } from "@douyinfe/semi-ui";
+import { useRequest } from "ahooks";
 import { useEffect, useState } from "react";
 import Slider from "../../components/Slider";
+import { postChangeStatus } from "../../service";
 import { HeaderWrapper } from "./style";
 
 
@@ -16,13 +19,31 @@ export default function Header({ setChange }) {
 
     const [status, setStatus] = useState(true);
 
+    const { run } = useRequest(postChangeStatus, {
+        manual: true,
+        onSuccess: ({code, msg}) => {
+            if (code === 1) {
+                // Toast.success(msg);
+            } else {
+                Toast.warninga(msg);
+            }
+        }
+    })
+
     const handleCancelSlide = () => {
         setIsSlide(false)
     }
 
+
     useEffect(() => {
         setChange(!selected);
     }, [selected])
+
+    useEffect(() => {
+        run({
+            status
+        })
+    }, [status]);
 
     return (
         <HeaderWrapper>

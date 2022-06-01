@@ -118,3 +118,13 @@ export const getFriendLetter = async (data, url = '/letter/friend/context') => {
 export const postLetterToFriend = async (data, url = '/letter/friend/send') => {
     return await post(url, data);
 }
+
+// 举报 
+export const postBadReport = async (data, url = '/letter/bad') => {
+    return await post(url, data);
+}
+
+// 切换情绪状态
+export const postChangeStatus = async (data, url = '/user/change/status') => {
+    return await post(url, data);
+}

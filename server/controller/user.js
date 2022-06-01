@@ -11,6 +11,7 @@ const { createToken } = require('../utils/token')
 const { stringReqT } = require('./config/paramsVerifyList')
 
 const path = require('path')
+const Letter = require('../models/letter')
 class UserCtrl {
 
     // 获取用户信息
@@ -122,6 +123,29 @@ class UserCtrl {
         } catch (err) {
             console.log(err);
             ctx.body = new ErrorModel('信友列表获取失败');
+        }
+    }
+
+    async getAllUser(ctx, next) {
+        const res = await User.find();
+        ctx.body = res;
+    }
+
+    async changeStatus(ctx, next) {
+        try {
+            const { status } = ctx.request.body;
+            const _id = ctx.state.user._id;
+            await Letter.findOneAndUpdate({
+                owner: _id,
+                send_status: 0,
+                status: !status
+            }, {
+                send_status: 1
+            });
+            ctx.body = new SuccessModel('状态更新成功');
+        } catch (err) {
+            console.log(err);
+            ctx.body = new ErrorModel('状态更新失败');
         }
     }
 }
